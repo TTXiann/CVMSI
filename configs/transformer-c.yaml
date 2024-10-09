@@ -1,0 +1,48 @@
+exp_name: 'p-10'
+exp_dir: 'exps'
+gpu_id: [0]
+model:
+    transformer_encoder:
+        input_dim: 4096
+        feat_dim: 1026
+        emb_dim: 512
+        att_dim: 512
+        att_head: 8
+        att_layer: 2
+        dim: 128
+        lambda_: 0.001
+        
+    transformer_decoder:
+        input_dim: 2052
+        word_dim: 300
+        att_dim: 512
+        att_head: 8
+        att_layer: 2
+        vocab_size: 76 
+        seq_length: 24
+        share_wd_cls_weight: False
+        label_smoothing: 0.0
+
+data:
+    num_workers: 4
+    dataset: 'rcc_dataset_c'
+    vocab_json: 'data/clevr-change/vocab.json'
+    type_mapping_json: 'data/clevr-change/type_mapping.json'
+    h5_label_file: None
+    default_feature_dir: None
+    semantic_feature_dir: None
+    nonsemantic_feature_dir: None
+    train:
+        batch_size: 128
+    test:
+        batch_size: 100
+train:
+    max_iter: 30000
+    snapshot_interval: 1000
+    grad_clip: -1.0
+    optim:
+        step_size: 5
+        gamma: 0.5
+        type: 'adam'
+        lr: 0.0002
+        weight_decay: 0.0
